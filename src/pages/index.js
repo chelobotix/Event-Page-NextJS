@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Link from 'next/link';
 // import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,20 +20,20 @@ export default function Home({ data }) {
       <header>
         <nav>
           <img src="" alt="" />
-          <a href="/">Home</a>
-          <a href="/events">Events</a>
-          <a href="/about">About us</a>
+          <Link href="/" passHref>Home</Link>
+          <Link href="/events" passHref>Events</Link>
+          <Link href="/about" passHref>About us</Link>
         </nav>
       </header>
       <main>
         {data.map((event) => (
-          <a key={uuidv4()} href={`/events/${event.id}`}>
+          <Link key={uuidv4()} href={`/events/${event.id}`} passHref>
             <div>
-              <Image src={event.image} alt={`${event.id} event`} width={200} height={200} />
+              <Image src={event.image} alt={`${event.id} event`} width={200} height={200} priority />
               <h2>{event.title}</h2>
               <p>{event.description}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </main>
       <footer>
@@ -50,3 +51,5 @@ export async function getServerSideProps() {
     }
   }
 }
+
+
